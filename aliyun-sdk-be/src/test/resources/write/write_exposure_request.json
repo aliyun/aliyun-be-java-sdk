@@ -1,0 +1,12 @@
+{
+  "type": "ADD",
+  "tableName": "be-cn-2r42p94ja001_x2i_stress_test_6000_inc",
+  "primaryKey": "trigger_id",
+  "contents": [
+    {
+      "trigger_id": "sss",
+      "item_id": "496666",
+      "score": "1"
+    }
+  ]
+}

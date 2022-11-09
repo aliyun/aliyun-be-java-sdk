@@ -1,0 +1,41 @@
+{
+  "returnCount" : 10,
+  "bizName" : "testBiz",
+  "recallParams" : [
+    {
+      "recallName" : "x2i",
+      "triggerItems": [
+        "A:1",
+        "B:2",
+        "C:3"
+      ],
+      "recallType" : "X2I",
+      "scorerClause": {
+        "clause" : "weight*score"
+      },
+      "returnCount" : 5
+    },
+    {
+      "recallName" : "vector",
+      "triggerItems": [
+        "1,1,1,1",
+        "2,2,2,2",
+        "3,3,3,3"
+      ],
+      "recallType" : "VECTOR",
+      "scorerClause": {
+        "clause" : "weight*score"
+      },
+      "returnCount" : 5
+    }
+  ],
+  "exposureClauses" : [
+    {
+      "name": "user_id",
+      "values" : [
+        "u001",
+        "u002"
+      ]
+    }
+  ]
+}

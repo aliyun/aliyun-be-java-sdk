@@ -1,0 +1,18 @@
+{
+  "request": {
+    "bizName": "x2i_stress_biz_test",
+    "recallParams": [
+      {
+        "triggerItems": [
+          "100:1",
+          "200:2"
+        ],
+        "recallType": "X2I",
+        "scorerClause": {
+          "clause": "score*double(weight)+1"
+        }
+      }
+    ],
+    "returnCount": 10
+  }
+}
