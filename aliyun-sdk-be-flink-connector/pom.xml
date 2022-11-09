@@ -2,14 +2,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>aliyun-be</artifactId>
-        <groupId>com.aliyun.be</groupId>
-        <version>1.0.4-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.aliyun.be</groupId>
     <artifactId>aliyun-sdk-be-flink-connector</artifactId>
+    <version>1.0.4-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
+    <name>Aliyun BE Flink Connector</name>
+    <url>http://www.aliyun.com</url>
+    <description>Aliyun BE Flink Connector
+        Copyright (C) Alibaba Cloud Computing
+        All rights reserved.
+        版权所有 （C）阿里云计算有限公司
+        http://www.aliyun.com
+    </description>
+    <licenses>
+        <license>
+            <name/>
+            <url/>
+            <distribution/>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:ssh://git@gitlab.alibaba-inc.com:openrec/aime-cloud-sdk.git</connection>
+        <url>scm:git:ssh://git@gitlab.alibaba-inc.com:openrec/aime-cloud-sdk.git</url>
+        <developerConnection>scm:git:ssh://git@gitlab.alibaba-inc.com:openrec/aime-cloud-sdk.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <id>aliyunproducts</id>
+            <name>Aliyun BE Flink Connector</name>
+            <email>silan.wpq@alibaba-inc.com</email>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
