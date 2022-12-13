@@ -6,11 +6,15 @@ import com.aliyuncs.be.client.protocol.RequestBuilder;
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -20,6 +24,7 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -140,8 +145,7 @@ public class BeClient {
         // TODO modify to batch put
         BeResponse beResponse = null;
         for (int i = 0; i < request.getContents().size(); i++) {
-            String url = requestBuilder.buildWriteUri(domain, port, request, i);
-            beResponse = getForResult(url, resp -> {
+            Function<String, BeResponse<Object>> resultHandler = resp -> {
                 JsonObject respJson;
                 try {
                     respJson = gson.fromJson(resp, JsonObject.class);
@@ -160,7 +164,14 @@ public class BeClient {
                 } catch (Throwable e) {
                     return BeResponse.buildFailureResponse("Failed to parse be result:" + resp);
                 }
-            });
+            };
+            String url = requestBuilder.buildWriteUri(domain, port, request, i);
+            if (StringUtils.equalsIgnoreCase("GET", request.getWriteMethod())) {
+                beResponse = getForResult(url, resultHandler);
+            } else {
+                String content = request.buildContent(i);
+                beResponse = postForResult(url, content, resultHandler);
+            }
             if (!beResponse.isSuccess()) {
                 return beResponse;
             }
@@ -168,12 +179,26 @@ public class BeClient {
         return beResponse;
     }
 
+    private <T> BeResponse<T> postForResult(String uri, String body, Function<String, BeResponse<T>> resultHandler) {
+        HttpPost httpPost = new HttpPost(uri);
+        try {
+            httpPost.setEntity(new StringEntity(body));
+        } catch (UnsupportedEncodingException e) {
+            return BeResponse.buildFailureResponse(String.format("Failed to encode post body[%s], msg:%s", body, e.getMessage()));
+        }
+        return executeForResult(httpPost, resultHandler);
+    }
+
     private <T> BeResponse<T> getForResult(String query, Function<String, BeResponse<T>> resultHandler) {
         HttpGet httpGet = new HttpGet(query);
+        return executeForResult(httpGet, resultHandler);
+    }
+
+    private <T> BeResponse<T> executeForResult(HttpUriRequest request, Function<String, BeResponse<T>> resultHandler) {
         CloseableHttpResponse response = null;
         try {
-            httpGet.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
-            response = httpClient.execute(httpGet);
+            request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
+            response = httpClient.execute(request);
             StatusLine statusLine = response.getStatusLine();
             if (statusLine.getStatusCode() != 200) {
                 String respEntity = EntityUtils.toString(response.getEntity());
@@ -188,18 +213,17 @@ public class BeClient {
                 return BeResponse.buildFailureResponse("Failed to request be, empty response");
             }
         } catch (Exception e) {
-            //TODO handler exception
             String message = "Failed to request be, error message:" + e.getMessage();
             log.error(message, e);
             return BeResponse.buildFailureResponse(message);
         } finally {
             if (response != null) {
                 try {
-                    //response.close();
                     EntityUtils.consume(response.getEntity());
                 } catch (IOException ignore) {
                 }
             }
         }
     }
+
 }

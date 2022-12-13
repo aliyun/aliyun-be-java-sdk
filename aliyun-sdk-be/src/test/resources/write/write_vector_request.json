@@ -2,6 +2,7 @@
   "type": "ADD",
   "tableName": "be-cn-zvp2j6v1z001_mock_vec_table",
   "primaryKey": "item_id",
+  "instanceName": "be-cn-zvp2j6v1z001",
   "contents": [
     {
       "item_id": "1",

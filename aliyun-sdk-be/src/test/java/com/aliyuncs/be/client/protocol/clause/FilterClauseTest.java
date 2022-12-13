@@ -1,6 +1,7 @@
 package com.aliyuncs.be.client.protocol.clause;
 
 import com.aliyuncs.be.client.exception.InvalidParameterException;
+import com.aliyuncs.be.client.protocol.clause.filter.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;

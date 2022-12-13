@@ -55,13 +55,17 @@ public class DefaultRequestBuilder implements RequestBuilder, Serializable {
         uriBuilder.setPath("sendmsg");
         uriBuilder.setScheme("http");
 
+        if (!request.isGetWrite()) {
+            return uriBuilder;
+        }
+
         StringBuilder kvPairBuilder = new StringBuilder();
         char separator = (char)31;
 
         String primaryKeyValue = StringUtils.EMPTY;
         for (Map.Entry<String, String> kvPair : request.getContents().get(index).entrySet()) {
             if (StringUtils.isBlank(kvPair.getKey())) {
-                throw new InvalidParameterException("Empty key or value for kv pair:" + new Gson().toJson(kvPair));
+                throw new InvalidParameterException("Empty key for kv pair:" + new Gson().toJson(kvPair));
             }
             if (StringUtils.isBlank(kvPair.getValue())) {
                 kvPair.setValue(StringUtils.EMPTY);
