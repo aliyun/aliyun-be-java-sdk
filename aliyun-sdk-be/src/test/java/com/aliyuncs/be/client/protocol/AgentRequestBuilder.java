@@ -28,6 +28,6 @@ public class AgentRequestBuilder extends DefaultRequestBuilder {
     public void rewriteAgentHost(String domain, int port, URIBuilder uriBuilder) {
         uriBuilder.addParameter("host", domain + ":" + port);
         uriBuilder.setPort(80);
-        uriBuilder.setHost("curl-proxy-cn-beijing.vpc.airec.aliyun-inc.com");
+        uriBuilder.setHost("curl-proxy-cn-hangzhou.vpc.airec.aliyun-inc.com");
     }
 }

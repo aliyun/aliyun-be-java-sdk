@@ -1,7 +1,7 @@
 package com.aliyuncs.be.client.protocol;
 
 import com.aliyuncs.be.client.exception.InvalidParameterException;
-import com.aliyuncs.be.client.protocol.clause.ScorerClause;
+import com.aliyuncs.be.client.protocol.clause.score.ScorerClause;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.collections.CollectionUtils;

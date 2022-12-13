@@ -2,8 +2,8 @@ package com.aliyuncs.be.client;
 
 import com.aliyuncs.be.client.exception.InvalidParameterException;
 import com.aliyuncs.be.client.protocol.RecallParam;
-import com.aliyuncs.be.client.protocol.clause.ExposureClause;
-import com.aliyuncs.be.client.protocol.clause.FilterClause;
+import com.aliyuncs.be.client.protocol.clause.exposure.ExposureClause;
+import com.aliyuncs.be.client.protocol.clause.filter.FilterClause;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.collections.CollectionUtils;

@@ -1,4 +1,4 @@
-package com.aliyuncs.be.client.protocol.clause;
+package com.aliyuncs.be.client.protocol.clause.filter;
 
 import com.aliyuncs.be.client.exception.InvalidParameterException;
 import lombok.Data;

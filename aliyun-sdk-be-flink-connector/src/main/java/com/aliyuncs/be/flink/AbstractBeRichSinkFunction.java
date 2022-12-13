@@ -18,7 +18,7 @@ public class AbstractBeRichSinkFunction<IN> extends RichSinkFunction<IN> {
     protected transient BeClient client;
     protected int retryNum = 3;
 
-    protected void sendRequest(BeWriteRequest request) {
+    protected String sendRequest(BeWriteRequest request) {
         int currentRetry = 0;
         BeResponse resp = null;
         do {
@@ -27,10 +27,10 @@ public class AbstractBeRichSinkFunction<IN> extends RichSinkFunction<IN> {
                 resp = client.write(request);
             } catch (InvalidParameterException e) {
                 log.error("Invalid request, message:" + e.getMessage(), e);
-                return;
+                return request.getContents().get(0).get(request.getPrimaryKey());
             }
             if (resp.isSuccess()) {
-                return;
+                return request.getContents().get(0).get(request.getPrimaryKey());
             }
             log.debug("Illegal resp for {} request, continue to retry, resp[{}]", currentRetry, resp);
             currentRetry++;

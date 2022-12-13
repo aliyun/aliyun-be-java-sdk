@@ -1,4 +1,4 @@
-package com.aliyuncs.be.client.protocol.clause;
+package com.aliyuncs.be.client.protocol.clause.filter;
 
 /**
  * @author silan.wpq

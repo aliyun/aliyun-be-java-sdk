@@ -5,7 +5,8 @@ import com.aliyuncs.be.client.BeResult;
 import com.aliyuncs.be.client.BeWriteRequest;
 import com.aliyuncs.be.client.ClientTestBase;
 import com.aliyuncs.be.client.exception.InvalidParameterException;
-import com.aliyuncs.be.client.protocol.clause.*;
+import com.aliyuncs.be.client.protocol.clause.filter.*;
+import com.aliyuncs.be.client.protocol.clause.score.ScorerClause;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -87,11 +88,21 @@ public class DefaultRequestBuilderTest extends ClientTestBase {
                 .type(BeWriteType.ADD)
                 .primaryKey("id")
                 .tableName("test6")
+                .instanceName("testInstance")
                 .contents(contentList)
+                .writeMethod("GET")
                 .build();
         String uri = builder.buildWriteUri(domain, port, writeRequest, 0);
-        log.info("Uri:\n" + uri);
+        log.info("Get uri:\n" + uri);
         assertEquals("http://domain.for.test:80/sendmsg?table=test6&h=1449589344&msg=CMD%3Dadd%1F%0Aid%3D111111%1F%0A", uri);
+
+        writeRequest.setWriteMethod("POST");
+        uri = builder.buildWriteUri(domain, port, writeRequest, 0);
+        log.info("Post uri:\n" + uri);
+        assertEquals("http://domain.for.test:80/sendmsg", uri);
+        String postContent = writeRequest.buildContent(0);
+        log.info("Content:\n" + postContent);
+        assertEquals("table=testInstance_test6&h=1449589344&msg=CMD%3Dadd%1F%0Aid%3D111111%1F%0A", postContent);
     }
 
     @Test

@@ -1,4 +1,8 @@
-package com.aliyuncs.be.client.protocol.clause;
+package com.aliyuncs.be.client.protocol.clause.filter;
+
+import com.aliyuncs.be.client.protocol.clause.filter.BeFilter;
+import com.aliyuncs.be.client.protocol.clause.filter.FilterOperator;
+import com.aliyuncs.be.client.protocol.clause.filter.InFilter;
 
 /**
  * @author silan.wpq

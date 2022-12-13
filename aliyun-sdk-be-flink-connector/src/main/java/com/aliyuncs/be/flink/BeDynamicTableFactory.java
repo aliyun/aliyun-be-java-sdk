@@ -37,6 +37,10 @@ public class BeDynamicTableFactory implements DynamicTableSinkFactory {
             .intType().defaultValue(0).withDescription("be request table name");
     public static final ConfigOption<Boolean> DRY_RUN = key("dry_run")
             .booleanType().defaultValue(false).withDescription("dry_run");
+    public static final ConfigOption<Boolean> ASYNC = key("async")
+            .booleanType().defaultValue(false).withDescription("be sink with async mode");
+    public static final ConfigOption<Integer> CONNECTION_POOL_SIZE = key("connection_pool_size")
+            .intType().defaultValue(30).withDescription("sink async connection pool size");
 
     @Override
     public DynamicTableSink createDynamicTableSink(Context context) {
@@ -70,6 +74,8 @@ public class BeDynamicTableFactory implements DynamicTableSinkFactory {
         Set<ConfigOption<?>> options = new HashSet<>();
         options.add(REQUEST_RETRY);
         options.add(DRY_RUN);
+        options.add(ASYNC);
+        options.add(CONNECTION_POOL_SIZE);
         return options;
     }
 }
