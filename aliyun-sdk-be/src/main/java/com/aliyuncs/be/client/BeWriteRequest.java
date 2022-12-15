@@ -27,7 +27,7 @@ public class BeWriteRequest {
     private List<Map<String, String>> contents;
     private String primaryKey;
     private String instanceName;
-    private String writeMethod = "GET";
+    private boolean postWrite = false;
 
     public void validate() throws InvalidParameterException {
         if (type == null) {
@@ -42,8 +42,8 @@ public class BeWriteRequest {
         if (CollectionUtils.isEmpty(contents)) {
             throw new InvalidParameterException("Empty contents");
         }
-        if (StringUtils.equalsIgnoreCase("POST", writeMethod) && StringUtils.isEmpty(instanceName)) {
-            throw new InvalidParameterException("Empty instance name");
+        if (postWrite && StringUtils.isEmpty(instanceName)) {
+            throw new InvalidParameterException("Instance name need for post write");
         }
         for (Map<String, String> content : contents) {
             if (MapUtils.isEmpty(content)) {
@@ -57,10 +57,6 @@ public class BeWriteRequest {
 
     private String getInstanceTableName() {
         return instanceName + "_" + tableName;
-    }
-
-    public boolean isGetWrite() {
-        return StringUtils.equalsIgnoreCase("GET", writeMethod);
     }
 
     public String buildContent(int index) throws InvalidParameterException {

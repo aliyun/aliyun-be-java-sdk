@@ -24,5 +24,6 @@ hs_err_pid*
 
 aliyun-sdk-be/.idea/
 aliyun-sdk-be-flink-connector/.idea/
+aliyun-sdk-be/src/test/java/com/aliyuncs/be/client/BeClientTest.java
 
 dependency-reduced-pom.xml
