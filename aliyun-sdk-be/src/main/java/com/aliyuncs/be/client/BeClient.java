@@ -166,7 +166,7 @@ public class BeClient {
                 }
             };
             String url = requestBuilder.buildWriteUri(domain, port, request, i);
-            if (StringUtils.equalsIgnoreCase("GET", request.getWriteMethod())) {
+            if (!request.isPostWrite()) {
                 beResponse = getForResult(url, resultHandler);
             } else {
                 String content = request.buildContent(i);

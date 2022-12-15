@@ -55,7 +55,7 @@ public class DefaultRequestBuilder implements RequestBuilder, Serializable {
         uriBuilder.setPath("sendmsg");
         uriBuilder.setScheme("http");
 
-        if (!request.isGetWrite()) {
+        if (request.isPostWrite()) {
             return uriBuilder;
         }
 
