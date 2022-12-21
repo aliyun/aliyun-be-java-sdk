@@ -21,9 +21,25 @@ public class SimpleQuery implements BeIndexQuery {
     @Override
     public JsonObject buildCondition() throws InvalidParameterException {
         JsonObject matchCondition = new JsonObject();
+        if (isValueQuoted()) {
+            value = value.substring(1, value.length() - 1);
+        }
         matchCondition.addProperty(indexName, value);
         JsonObject condition = new JsonObject();
         condition.add("match", matchCondition);
         return condition;
+    }
+
+    private boolean isValueQuoted() {
+        if (value.length() <= 1) {
+            return false;
+        }
+        if (value.charAt(0) == '\'' && value.charAt(value.length() - 1) == '\'') {
+            return true;
+        }
+        if (value.charAt(0) == '"' && value.charAt(value.length() - 1) == '"') {
+            return true;
+        }
+        return false;
     }
 }
