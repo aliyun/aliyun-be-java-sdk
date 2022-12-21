@@ -123,7 +123,7 @@ public class DefaultRequestBuilderTest extends ClientTestBase {
         BeResult result = gson.fromJson(content, BeResult.class);
         BeResult.MatchItems matchItems = result.getMatchItems();
         List<String> fields = matchItems.getFieldNames();
-        List<String> values = matchItems.getFieldValues().get(0);
+        List<Object> values = matchItems.getFieldValues().get(0);
         StringBuilder contentBuilder = new StringBuilder();
         char separator = (char) 31;
         contentBuilder.append("CMD=add").append(separator).append('\n');

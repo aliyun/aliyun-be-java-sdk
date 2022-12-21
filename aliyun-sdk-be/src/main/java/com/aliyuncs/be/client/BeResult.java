@@ -19,7 +19,7 @@ public class BeResult {
     @Data
     public static class MatchItems {
         List<String> fieldNames;
-        List<List<String>> fieldValues;
+        List<List<Object>> fieldValues;
     }
 
     public int getItemsCount() {
@@ -29,12 +29,12 @@ public class BeResult {
         return matchItems.getFieldValues().size();
     }
 
-    public Map<String, String> getItem(int num) {
+    public Map<String, Object> getItem(int num) {
         if (num < 0 || num >= getItemsCount()) {
             return null;
         }
-        List<String> value = matchItems.getFieldValues().get(num);
-        Map<String, String> result = new HashMap<>();
+        List<Object> value = matchItems.getFieldValues().get(num);
+        Map<String, Object> result = new HashMap<>();
         for (int i = 0; i < matchItems.fieldNames.size(); i++) {
             result.put(matchItems.fieldNames.get(i), value.get(i));
         }

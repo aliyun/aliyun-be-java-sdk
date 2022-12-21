@@ -107,12 +107,12 @@ public class ClientTestBase {
     @Data
     public static class TestChecker {
         private String field;
-        private List<String> values;
+        private List<Object> values;
 
         public boolean check(BeResult result) {
             for (int i = 0; i < result.getItemsCount(); i++) {
-                Map<String, String> item = result.getItem(i);
-                String fieldValue = item.get(field);
+                Map<String, Object> item = result.getItem(i);
+                Object fieldValue = item.get(field);
                 if (fieldValue == null) {
                     log.error("Field[{}] not exist in item:{}", field, new Gson().toJson(item));
                     return false;

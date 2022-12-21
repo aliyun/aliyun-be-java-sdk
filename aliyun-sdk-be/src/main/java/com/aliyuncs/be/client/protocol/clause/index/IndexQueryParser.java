@@ -206,11 +206,11 @@ public class IndexQueryParser {
     }
 
     private boolean isAndOperator(String segment) {
-        return StringUtils.equals(segment, "and");
+        return StringUtils.equalsIgnoreCase(segment, "and");
     }
 
     private boolean isOrOperator(String segment) {
-        return StringUtils.equals(segment, "or");
+        return StringUtils.equalsIgnoreCase(segment, "or");
     }
 
 }

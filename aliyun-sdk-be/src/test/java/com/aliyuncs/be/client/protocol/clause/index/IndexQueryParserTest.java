@@ -21,6 +21,10 @@ public class IndexQueryParserTest {
         indexQueryEqual("(a=1)", "{\"match\":{\"a\":\"1\"}}");
         indexQueryEqual("(((a=1)))", "{\"match\":{\"a\":\"1\"}}");
         indexQueryEqual("itemtype=100", "{\"match\":{\"itemtype\":\"100\"}}");
+        indexQueryEqual("a='1' and b=\"2\"",
+                "{\"and\":[{\"match\":{\"a\":\"1\"}},{\"match\":{\"b\":\"2\"}}]}");
+        indexQueryEqual("a=1 AND b=2",
+                "{\"and\":[{\"match\":{\"a\":\"1\"}},{\"match\":{\"b\":\"2\"}}]}");
         indexQueryEqual("a=1 and b=2",
                 "{\"and\":[{\"match\":{\"a\":\"1\"}},{\"match\":{\"b\":\"2\"}}]}");
         indexQueryEqual("(a=1 and b=2) or c=3 and e=2",
